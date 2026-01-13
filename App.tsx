@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Header from './components/Header';
+import Header from './components/Navbar';
 import Hero from './components/Hero';
 import Partners from './components/Partners';
 import PainPoints from './components/PainPoints';
