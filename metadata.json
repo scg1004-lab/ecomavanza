@@ -1,0 +1,8 @@
+{
+  "name": "ECOM AVANZA - Consultora Estratégica Amazon",
+  "description": "Consultora líder en Amazon para maximizar rentabilidad, publicidad avanzada y cumplimiento normativo.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
