@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Header from './components/Navbar';
 import Hero from './components/Hero';
-import Partners from './components/Partners';
 import PainPoints from './components/PainPoints';
 import Services from './components/Services';
 import Advantages from './components/Advantages';
@@ -176,7 +175,6 @@ const App: React.FC = () => {
       <Header />
       <main>
         <Hero />
-        <Partners />
 
         <RevealOnScroll><PainPoints /></RevealOnScroll>
         <RevealOnScroll><Services /></RevealOnScroll>

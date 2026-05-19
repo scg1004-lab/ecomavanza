@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
                   <div className="flex text-yellow-400">
                     {'★★★★★'.split('').map((s, i) => <span key={i}>{s}</span>)}
                   </div>
-                  <p className="text-xs font-black text-[#0e3a4d]/50 uppercase tracking-widest">+500 Marcas Escaladas</p>
+                  <p className="text-xs font-black text-[#0e3a4d]/50 uppercase tracking-widest">+50 Marcas Escaladas</p>
                 </div>
               </div>
             </div>
@@ -70,16 +70,16 @@ const Hero: React.FC = () => {
             transition={{ duration: 1, delay: 0.4 }}
             className="relative"
           >
-            <div className="relative z-10 rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(14,58,77,0.15)] bg-white border-8 border-white">
+            <div className="relative z-10 rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(14,58,77,0.15)] bg-white border-8 border-white aspect-video md:aspect-[4/3] flex items-center justify-center">
               <video
-                src="/magnific_crear-un-video-corto-de-4-segundos-es-para-una-web_seedance_480p_16-9_24fps_61102.mp4"
+                src="/hero-video.mp4"
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="w-full h-full object-cover aspect-square md:aspect-auto"
+                className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0e3a4d]/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0e3a4d]/30 to-transparent"></div>
             </div>
 
             {/* Floating Stats Cards */}
