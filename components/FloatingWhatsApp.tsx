@@ -68,24 +68,31 @@ const FloatingWhatsApp: React.FC = () => {
       `}</style>
 
       <a
-        href="https://wa.me/34654822800" // Reemplaza con el número de WhatsApp real
+        href="https://wa.me/34654822800?text=%C2%A1Hola%21+Me+gustar%C3%ADa+recibir+m%C3%A1s+informaci%C3%B3n."
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 z-[60] flex items-center bg-white rounded-full p-2 pr-2 pl-6 border-[3px] border-[#25D366] premium-whatsapp-float group"
+        className="fixed bottom-8 right-8 z-[60] flex items-center gap-4 bg-white rounded-full p-2 pl-6 border-[3px] border-[#25D366] premium-whatsapp-float group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
       >
-        <div className="flex flex-col justify-center mr-4">
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="text-[#0e3a4d] font-black text-base leading-none">Asesor</span>
-            <span className="w-2.5 h-2.5 bg-[#25D366] rounded-full animate-pulse"></span>
-          </div>
-          <span className="text-slate-500 text-xs font-medium leading-none">Responde en 1 minuto</span>
+        {/* Texto personalizado que sustituye al número */}
+        <div className="flex flex-col text-left">
+          <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold leading-none">
+            ¿Tienes dudas?
+          </span>
+          <span className="text-sm font-semibold text-gray-800 group-hover:text-[#25D366] transition-colors duration-300">
+            EcomAvanza Soporte
+          </span>
         </div>
-        <div className="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center text-white shrink-0 shadow-inner group-hover:bg-[#20bd5a] transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c-.003 1.396.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+
+        {/* Contenedor del Icono estilo "Badge" */}
+        <div className="bg-[#25D366] p-2.5 rounded-full text-white shadow-md group-hover:scale-105 transition-transform duration-300">
+          <svg
+            className="w-6 h-6 fill-current"
+            viewBox="0 0 24 24"
+          >
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.623-1.023-5.09-2.885-6.956C16.528 1.983 14.069 1.96 11.993 1.96c-5.436 0-9.86 4.37-9.864 9.8 0 1.742.48 3.44 1.39 4.95l-.974 3.555 3.65-.957zM17.491 14.3c-.266-.134-1.574-.775-1.817-.863-.243-.088-.419-.133-.596.133-.176.265-.683.862-.838 1.039-.154.177-.31.198-.576.065-.266-.134-1.12-.413-2.133-1.317-.788-.702-1.32-1.569-1.474-1.835-.155-.266-.017-.41.117-.543.12-.12.266-.31.4-.464.133-.155.177-.265.266-.443.089-.177.044-.332-.022-.464-.067-.133-.596-1.437-.817-1.967-.215-.518-.433-.448-.596-.456-.153-.008-.33-.01-.507-.01-.177 0-.464.067-.707.332-.243.265-.928.907-.928 2.212 0 1.305.95 2.566 1.084 2.743.133.177 1.87 2.854 4.529 4c.633.273 1.127.436 1.512.559.635.202 1.212.174 1.669.107.51-.077 1.574-.641 1.795-1.26.223-.619.223-1.15.156-1.26-.067-.11-.244-.176-.51-.309z" />
           </svg>
         </div>
-      </a>
+      </a >
     </>
   );
 };
