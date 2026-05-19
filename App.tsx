@@ -95,7 +95,7 @@ const Solutions: React.FC = () => {
 const Resources: React.FC = () => {
   const articles = [
     {
-      title: "Guía 2025: Inversión Amazon Ads",
+      title: "Guía 2026: Inversión Amazon Ads",
       desc: "Cómo calcular tu presupuesto publicitario real evitando los errores más comunes del sector.",
       img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600"
     },
@@ -162,7 +162,7 @@ const Footer: React.FC = () => {
           ))}
         </div>
         <div className="h-px w-full max-w-2xl mx-auto bg-white/10 mb-10"></div>
-        <p className="text-slate-600 text-[10px] font-black uppercase tracking-[0.3em]">© 2025 ECOM AVANZA - Consultoría Estratégica Élite. Todos los derechos reservados.</p>
+        <p className="text-slate-600 text-[10px] font-black uppercase tracking-[0.3em]">© 2026 ECOM AVANZA - Consultoría Estratégica Élite. Todos los derechos reservados.</p>
       </div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#4fd1d1]/5 rounded-full blur-[100px]"></div>
     </footer>
@@ -203,7 +203,7 @@ const App: React.FC = () => {
                     "Análisis profundo de tu cuenta actual",
                     "Identificación de fugas de rentabilidad",
                     "Hoja de ruta personalizada para el escalado",
-                    "Proyección de ROAS y ventas 2025"
+                    "Proyección de ROAS y ventas 2026"
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-4 text-white/80 font-bold">
                       <div className="w-6 h-6 bg-[#4fd1d1] rounded-full flex items-center justify-center text-[#0e3a4d]">
