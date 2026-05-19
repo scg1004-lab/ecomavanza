@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
   React.useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = true;
-      videoRef.current.playbackRate = 0.55; // Reduce la velocidad al 55% para un movimiento más suave y premium
+      videoRef.current.playbackRate = 0.85; // Reduce la velocidad al 55% para un movimiento más suave y premium
       videoRef.current.play().catch(error => {
         console.log("Autoplay falló o fue bloqueado por el navegador:", error);
       });
