@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
               className="inline-flex items-center gap-2 bg-white/50 backdrop-blur-md border border-white px-5 py-2 rounded-full mb-8 shadow-sm"
             >
               <span className="w-2 h-2 bg-[#4fd1d1] rounded-full animate-ping"></span>
-              <span className="text-xs font-black text-[#0e3a4d] uppercase tracking-[0.2em]">Consultoría Amazon Élite 2025</span>
+              <span className="text-xs font-black text-[#0e3a4d] uppercase tracking-[0.2em]">Consultoría Amazon/span>
             </motion.div>
 
             <h1 className="text-6xl md:text-[5.5rem] font-black text-[#0e3a4d] leading-[1.05] mb-8 tracking-tighter">
