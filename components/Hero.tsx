@@ -71,9 +71,12 @@ const Hero: React.FC = () => {
             className="relative"
           >
             <div className="relative z-10 rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(14,58,77,0.15)] bg-white border-8 border-white">
-              <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000"
-                alt="Amazon Strategy Dashboard"
+              <video
+                src="/magnific_crear-un-video-corto-de-4-segundos-es-para-una-web_seedance_480p_16-9_24fps_61102.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="w-full h-full object-cover aspect-square md:aspect-auto"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0e3a4d]/40 to-transparent"></div>
