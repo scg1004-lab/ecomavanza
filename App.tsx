@@ -7,7 +7,7 @@ import PainPoints from './components/PainPoints';
 import Services from './components/Services';
 import Advantages from './components/Advantages';
 import ContactForm from './components/ContactForm';
-import ConsultantChat from './components/ConsultantChat';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 
 // Motion Wrapper Component
 const RevealOnScroll: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -224,7 +224,7 @@ const App: React.FC = () => {
         <Resources />
       </main>
       <Footer />
-      <ConsultantChat />
+      <FloatingWhatsApp />
     </div>
   );
 };
