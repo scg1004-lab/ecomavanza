@@ -3,6 +3,18 @@ import { motion } from 'framer-motion';
 import { Rocket, Target, BarChart3, Globe, ArrowRight, ShieldCheck } from 'lucide-react';
 
 const Hero: React.FC = () => {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  React.useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.playbackRate = 0.55; // Reduce la velocidad al 55% para un movimiento más suave y premium
+      videoRef.current.play().catch(error => {
+        console.log("Autoplay falló o fue bloqueado por el navegador:", error);
+      });
+    }
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[#f0f9fa]">
       {/* Dynamic Background Elements */}
@@ -72,6 +84,7 @@ const Hero: React.FC = () => {
           >
             <div className="relative z-10 rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(14,58,77,0.15)] bg-white border-8 border-white aspect-video md:aspect-[4/3] flex items-center justify-center">
               <video
+                ref={videoRef}
                 src="/hero-video.mp4"
                 autoPlay
                 loop
