@@ -7,6 +7,7 @@ import Services from './components/Services';
 import Advantages from './components/Advantages';
 import ContactForm from './components/ContactForm';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import FAQ from './components/FAQ';
 
 // Motion Wrapper Component
 const RevealOnScroll: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -220,6 +221,7 @@ const App: React.FC = () => {
         </section>
 
         <Resources />
+        <RevealOnScroll><FAQ /></RevealOnScroll>
       </main>
       <Footer />
       <FloatingWhatsApp />
