@@ -6,7 +6,7 @@ const PainPoints: React.FC = () => {
     {
       title: "Mucho gasto en Ads",
       desc: "Campañas con inversión alta y rentabilidad baja",
-      icon: "📈"
+      icon: "📉"
     },
     {
       title: "Listings que no convierten",
