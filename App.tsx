@@ -27,8 +27,8 @@ const Solutions: React.FC = () => {
       <div className="container mx-auto px-6">
         <RevealOnScroll>
           <div className="text-center mb-16">
-            <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.3em] mb-4">Soluciones a Medida</h2>
-            <h3 className="text-4xl md:text-6xl font-black text-[#0e3a4d] mb-6 tracking-tighter">Tu Crecimiento en Cada Etapa</h3>
+            <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.3em] mb-4">Soluciones adaptadas</h2>
+            <h3 className="text-4xl md:text-6xl font-black text-[#0e3a4d] mb-6 tracking-tighter">Te ayudamos en cada etapa de Amazon</h3>
           </div>
         </RevealOnScroll>
 
@@ -40,13 +40,13 @@ const Solutions: React.FC = () => {
               className="p-12 h-full rounded-[3rem] bg-[#f0f9fa] border border-slate-100 group transition-all duration-300"
             >
               <div className="w-16 h-16 bg-[#0e3a4d] rounded-2xl flex items-center justify-center text-[#4fd1d1] mb-8 font-black text-2xl shadow-lg group-hover:rotate-6 transition-transform">01</div>
-              <h4 className="text-3xl font-black text-[#0e3a4d] mb-6 leading-tight">Para Nuevos Vendedores</h4>
+              <h4 className="text-3xl font-black text-[#0e3a4d] mb-6 leading-tight">Cuentas que empiezan en Amazon</h4>
               <ul className="space-y-5 mb-10">
                 {[
-                  "Guía para Vendedores Nuevos (Incentivos de hasta $50k)",
-                  "Configuración Profesional de Cuenta Seller Central",
-                  "Estrategia Agresiva de Lanzamiento de Producto",
-                  "Registro de Marca Rápido (IP Accelerator)"
+                  "Configuración inicial de Seller Central ",
+                  "Optimización de listings y catálogo ",
+                  "Estrategia de lanzamiento de producto",
+                  "Primeras campañas de Amazon Ads"
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-4 text-slate-700 font-bold text-sm">
                     <svg className="w-6 h-6 text-[#4fd1d1] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,13 +68,13 @@ const Solutions: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-[#4fd1d1]/5 to-transparent"></div>
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-[#4fd1d1] rounded-2xl flex items-center justify-center text-[#0e3a4d] mb-8 font-black text-2xl shadow-lg group-hover:-rotate-6 transition-transform">02</div>
-                <h4 className="text-3xl font-black mb-6 leading-tight">Marcas Consolidadas</h4>
+                <h4 className="text-3xl font-black mb-6 leading-tight">Marcas que quieren escalar</h4>
                 <ul className="space-y-5 mb-10">
                   {[
-                    "Optimización Publicitaria Escalable ($10k+/mes)",
-                    "Expansión Global Selling (EE. UU., Europa, etc.)",
-                    "Modelo Híbrido de Externalización Operativa",
-                    "Defensa Legal y Cumplimiento Avanzado"
+                    "Optimización continua de campañas Ads ",
+                    "Mejora de conversión y rentabilidad ",
+                    "Organización y crecimiento del catálogo ",
+                    "Estrategia para escalar ventas de forma sostenible"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-4 text-slate-300 font-bold text-sm">
                       <svg className="w-6 h-6 text-[#4fd1d1] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

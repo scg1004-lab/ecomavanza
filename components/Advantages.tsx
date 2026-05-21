@@ -4,24 +4,24 @@ import React from 'react';
 const Advantages: React.FC = () => {
   const ads = [
     {
-      title: "Socios Oficiales",
-      desc: "Miembros del Amazon SPN y Socios Avanzados de Amazon Ads. Acceso a betas exclusivas.",
-      icon: "🏆"
-    },
-    {
-      title: "Experiencia Real",
-      desc: "Ex-vendedores y abogados especializados. No solo consejos; representación legal completa.",
-      icon: "🛡️"
-    },
-    {
-      title: "Tecnología y Datos",
-      desc: "Dominio de herramientas de IA líderes. La estrategia dicta la herramienta, no al revés.",
+      title: "Visión estratégica",
+      desc: "No aplicamos cambios al azar. Cada decisión tiene un objetivo claro dentro de la cuenta.",
       icon: "🧠"
     },
     {
-      title: "Resultados Medibles",
-      desc: "Enfoque implacable en rentabilidad neta. Casos de éxito con retornos 4x certificados.",
+      title: "Experiencia Real en Amazon",
+      desc: "Entendemos los problemas habituales de una cuenta porque trabajamos el día a día dentro de Amazon.",
+      icon: "📦"
+    },
+    {
+      title: "Decisiones basadas en datos",
+      desc: "Analizamos métricas reales para optimizar ventas, conversión y rentabilidad.",
       icon: "📊"
+    },
+    {
+      title: "Enfoque en crecimiento rentable",
+      desc: "Buscamos resultados sostenibles, no solo aumentar facturación a cualquier precio.",
+      icon: "📈"
     }
   ];
 
@@ -29,8 +29,8 @@ const Advantages: React.FC = () => {
     <section id="ventajas" className="py-24 bg-[#0e3a4d] overflow-hidden relative">
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-          <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.4em] mb-4">La Diferencia</h2>
-          <h3 className="text-4xl md:text-5xl font-black text-white mb-6">Por Qué Somos Su Socio Definitivo</h3>
+          <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.4em] mb-4">Nuestra forma de trabajar</h2>
+          <h3 className="text-4xl md:text-5xl font-black text-white mb-6">Estrategia real para crecer en Amazon</h3>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

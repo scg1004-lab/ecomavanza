@@ -4,24 +4,24 @@ import React from 'react';
 const PainPoints: React.FC = () => {
   const points = [
     {
-      title: "Laberinto de Tarifas",
-      desc: "Estructuras complejas (FBA, Almacenamiento) que erosionan tus márgenes de beneficio.",
-      icon: "💸"
-    },
-    {
-      title: "Publicidad Saturada",
-      desc: "Inflación del CPC de hasta 120%. Gestión experta para no quemar tu presupuesto.",
+      title: "Mucho gasto en Ads",
+      desc: "Campañas con inversión alta y rentabilidad baja",
       icon: "📈"
     },
     {
-      title: "Riesgo de Suspensión",
-      desc: "Infracciones de políticas o reclamos de IP que pueden cerrar tu cuenta catastróficamente.",
-      icon: "⚠️"
+      title: "Listings que no convierten",
+      desc: "Productos con visitas pero pocas ventas.",
+      icon: "🛒"
     },
     {
-      title: "Complejidad IA",
-      desc: "Necesidad de dominar la automatización para mantener la competitividad en 2025.",
-      icon: "🤖"
+      title: "Catálogo desordenado",
+      desc: "Variaciones, fichas y estructura mal optimizadas.",
+      icon: "📦"
+    },
+    {
+      title: "Ventas estancadas",
+      desc: "Cuentas que venden, pero no consiguen escalar.",
+      icon: "📈"
     }
   ];
 
@@ -29,10 +29,10 @@ const PainPoints: React.FC = () => {
     <section className="py-24 bg-[#f0f9fa]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.3em] mb-4">Problemas Reales</h2>
-          <h3 className="text-4xl md:text-5xl font-black text-[#0e3a4d] mb-6">Puntos de Dolor que Resolvemos</h3>
+          <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.3em] mb-4">Problemas habituales en Amazon</h2>
+          <h3 className="text-4xl md:text-5xl font-black text-[#0e3a4d] mb-6">Lo que suele frenar el crecimiento de una marca</h3>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
-            Identificamos y solucionamos los desafíos más críticos que enfrentan los vendedores, permitiéndoles enfocarse en su producto.
+            Detectamos los errores que más impactan en ventas, rentabilidad y rendimiento dentro de Amazon.
           </p>
         </div>
 

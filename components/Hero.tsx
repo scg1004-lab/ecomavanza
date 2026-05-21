@@ -40,12 +40,12 @@ const Hero: React.FC = () => {
 
             <h1 className="text-6xl md:text-[5.5rem] font-black text-[#0e3a4d] leading-[1.05] mb-8 tracking-tighter">
               Escala tu <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0e3a4d] to-[#4fd1d1]">Imperio</span> en <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0e3a4d] to-[#4fd1d1]">Marca</span> en <br />
               Amazon.
             </h1>
 
             <p className="text-xl md:text-2xl text-[#0e3a4d]/70 font-medium mb-12 max-w-xl leading-relaxed">
-              Transformamos cuentas complejas en máquinas de rentabilidad masiva mediante estrategias de datos y publicidad de alta precisión.
+              Ayudamos a marcas a crecer en Amazon optimizando listings, publicidad y estrategia de cuenta.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6">

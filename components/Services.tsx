@@ -6,14 +6,14 @@ const Services: React.FC = () => {
   const pillars: ServicePillar[] = [
     {
       id: "2.1",
-      title: "Gestión y Estrategia de Cuentas",
+      title: "Gestión de cuenta Amazon",
       description: "Optimizamos cada aspecto de tu operación en Seller Central para garantizar la máxima eficiencia, rentabilidad y un crecimiento sostenido.",
       items: [
-        { label: "Administración de Cuentas", detail: "Soporte integral en operaciones diarias y análisis estratégico." },
-        { label: "Auditoría de Catálogo", detail: "Mejora de listados siguiendo guías de estilo para mejor indexación." },
-        { label: "Inventario con IA", detail: "Modelos predictivos para evitar roturas de stock y cargos extras." },
-        { label: "Análisis de Rentabilidad", detail: "Optimización de costos FBA y tarifas de referencia." },
-        { label: "Logística FBA", detail: "Asesoría completa en envíos y servicio al cliente." }
+        { label: "Optimización de listings y catálogo ", detail: "Soporte integral en operaciones diarias y análisis estratégico." },
+        { label: "Gestión y organización de Seller Central ", detail: "Mejora de listados siguiendo guías de estilo para mejor indexación." },
+        { label: "Control de inventario y estructura ", detail: "Modelos predictivos para evitar roturas de stock y cargos extras." },
+        { label: "Seguimiento operativo y estratégico ", detail: "Optimización de costos FBA y tarifas de referencia." },
+        
       ],
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -23,13 +23,13 @@ const Services: React.FC = () => {
     },
     {
       id: "2.2",
-      title: "Publicidad y Crecimiento Acelerado",
+      title: "Publicidad y Crecimiento",
       description: "Diseñamos y ejecutamos estrategias publicitarias de embudo completo que aumentan tu visibilidad y maximizan tu retorno (ROAS).",
       items: [
-        { label: "Gestión Amazon PPC", detail: "Estrategias para equilibrar ACoS y TACoS eficientemente." },
-        { label: "Acceso Amazon DSP", detail: "Retargeting externo utilizando data de compra exclusiva." },
-        { label: "Contenido A+", detail: "Diseño de marca enriquecido e imágenes de alta conversión." },
-        { label: "Posicionamiento SEO", detail: "Estrategias de lanzamiento para ganar reseñas y ranking orgánico." }
+        { label: "Gestión de campañas Amazon Ads", detail: "Estrategias para equilibrar ACoS y TACoS eficientemente." },
+        { label: "Optimización de rentabilidad (ACoS/TACoS) ", detail: "Retargeting externo utilizando data de compra exclusiva." },
+        { label: "Estrategias para mejorar conversión ", detail: "Diseño de marca enriquecido e imágenes de alta conversión." },
+        { label: "Escalado progresivo de ventas ", detail: "Estrategias de lanzamiento para ganar reseñas y ranking orgánico." }
       ],
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,13 +39,13 @@ const Services: React.FC = () => {
     },
     {
       id: "2.3",
-      title: "Cumplimiento y Protección de Marca",
+      title: "Marca y estabilidad",
       description: "Blindamos tu negocio contra los riesgos regulatorios y legales, protegiendo tu marca y asegurando la continuidad operativa.",
       items: [
-        { label: "Compliance Normativo", detail: "Requisitos CPSC, FDA, EPA, REACH, RoHS y certificados UL." },
-        { label: "Gestión de Crisis", detail: "Planes de Acción (POA) para reactivar cuentas suspendidas." },
-        { label: "Defensa Legal IP", detail: "Protección contra infracciones por abogados expertos." },
-        { label: "Brand Registry", detail: "Acceso rápido a protección de marca mediante IP Accelerator." }
+        { label: "Resolución de incidencias en cuenta ", detail: "Requisitos CPSC, FDA, EPA, REACH, RoHS y certificados UL." },
+        { label: "Soporte en bloqueos y problemas comunes", detail: "Planes de Acción (POA) para reactivar cuentas suspendidas." },
+        { label: "Mejora de presencia de marca ", detail: "Protección contra infracciones por abogados expertos." },
+        { label: "•	Estrategias sostenibles a largo plazo", detail: "Acceso rápido a protección de marca mediante IP Accelerator." }
       ],
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -77,10 +77,10 @@ const Services: React.FC = () => {
     <section id="servicios" className="py-24 bg-white relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mb-20">
-          <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.4em] mb-4">Ecosistema 360°</h2>
-          <h3 className="text-4xl md:text-5xl font-black text-[#0e3a4d] mb-8 leading-tight">Nuestros Pilares de Servicio</h3>
+          <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.4em] mb-4">Servicios Principales</h2>
+          <h3 className="text-4xl md:text-5xl font-black text-[#0e3a4d] mb-8 leading-tight">Estrategia y gestión para crecer en Amazon</h3>
           <p className="text-xl text-slate-600 leading-relaxed font-medium">
-            El éxito sostenido en Amazon no es accidental; es el resultado de una estrategia integral donde cada componente se amplifica bajo el liderazgo de <strong>ECOM AVANZA</strong>.
+            Desde la optimización de la cuenta hasta la estrategia publicitaria y el crecimiento de marca.</strong>.
           </p>
         </div>
 
