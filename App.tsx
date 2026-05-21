@@ -149,6 +149,14 @@ const Resources: React.FC = () => {
 };
 
 const Footer: React.FC = () => {
+  // Array de redes sociales con los links correspondientes
+  const socialLinks = [
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/ecomavanza/' }, // <-- AQUI TU ENLACE DE LINKEDIN
+    { name: 'Twitter', url: '#' },
+    { name: 'YouTube', url: '#' },
+    { name: 'Instagram', url: '#' }
+  ];
+
   return (
     <footer className="bg-[#0e3a4d] py-20 border-t border-white/5 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10 text-center">
@@ -157,11 +165,21 @@ const Footer: React.FC = () => {
           <span className="text-2xl font-black text-white tracking-tighter">ECOM <span className="text-[#4fd1d1]">AVANZA</span></span>
         </div>
         <p className="text-slate-400 text-sm mb-12 font-bold max-w-lg mx-auto leading-relaxed">Transformamos la complejidad de Amazon en tu mayor ventaja competitiva. El socio definitivo para el éxito global.</p>
+        
         <div className="flex justify-center gap-10 mb-12">
-          {['LinkedIn', 'Twitter', 'YouTube', 'Instagram'].map(social => (
-            <a key={social} href="#" className="text-slate-500 hover:text-[#4fd1d1] transition-colors font-black text-xs uppercase tracking-[0.2em]">{social}</a>
+          {socialLinks.map(social => (
+            <a 
+              key={social.name} 
+              href={social.url}
+              target={social.url !== '#' ? '_blank' : undefined}
+              rel={social.url !== '#' ? 'noopener noreferrer' : undefined}
+              className="text-slate-500 hover:text-[#4fd1d1] transition-colors font-black text-xs uppercase tracking-[0.2em]"
+            >
+              {social.name}
+            </a>
           ))}
         </div>
+        
         <div className="h-px w-full max-w-2xl mx-auto bg-white/10 mb-10"></div>
         <p className="text-slate-600 text-[10px] font-black uppercase tracking-[0.3em]">© 2026 ECOM AVANZA - Consultoría Estratégica Élite. Todos los derechos reservados.</p>
       </div>
