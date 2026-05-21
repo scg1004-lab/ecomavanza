@@ -80,7 +80,7 @@ const Services: React.FC = () => {
           <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.4em] mb-4">Servicios Principales</h2>
           <h3 className="text-4xl md:text-5xl font-black text-[#0e3a4d] mb-8 leading-tight">Estrategia y gestión para crecer en Amazon</h3>
           <p className="text-xl text-slate-600 leading-relaxed font-medium">
-            Desde la optimización de la cuenta hasta la estrategia publicitaria y el crecimiento de marca.</strong>.
+           <strong> Desde la optimización de la cuenta hasta la estrategia publicitaria y el crecimiento de marca.</strong>.
           </p>
         </div>
 
