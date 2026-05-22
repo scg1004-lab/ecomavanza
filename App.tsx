@@ -211,11 +211,11 @@ const App: React.FC = () => {
             <div className="grid lg:grid-cols-2 gap-20 items-center">
               <div>
                 <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-tight">
-                  ¿Listo para dominar <br />
-                  <span className="text-[#4fd1d1]">tu mercado?</span>
+                  ¿Quieres mejorar el rendimiento de <br />
+                  <span className="text-[#4fd1d1]">tu cuenta en Amazon?</span>
                 </h2>
                 <p className="text-xl text-slate-300 font-bold mb-12 leading-relaxed">
-                  Deja de gestionar la complejidad y empieza a escalar resultados. Nuestra auditoría gratuita es el primer paso hacia tu dominio global en Amazon.
+                  Te ayudamos a identificar qué está limitando el crecimiento de tu cuenta y cómo mejorar ventas, rentabilidad y conversión en Amazon.
                 </p>
                 <div className="space-y-6">
                   {[
