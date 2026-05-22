@@ -30,7 +30,7 @@ const PainPoints: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.3em] mb-4">Problemas habituales en Amazon</h2>
-          <h3 className="text-4xl md:text-5xl font-black text-[#0e3a4d] mb-6">Lo que suele frenar el crecimiento de una marca</h3>
+          <h3 className="text-4xl md:text-5xl font-black text-[#0e3a4d] mb-6">Factores que limitan el crecimiento de tu marca en Amazon</h3>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
             Detectamos los errores que más impactan en ventas, rentabilidad y rendimiento dentro de Amazon.
           </p>

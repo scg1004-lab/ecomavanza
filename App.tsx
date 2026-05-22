@@ -219,10 +219,10 @@ const App: React.FC = () => {
                 </p>
                 <div className="space-y-6">
                   {[
-                    "Análisis profundo de tu cuenta actual",
-                    "Identificación de fugas de rentabilidad",
-                    "Hoja de ruta personalizada para el escalado",
-                    "Proyección de ROAS y ventas 2026"
+                    "Análisis de tu cuenta actual en Amazon ",
+                    "Identificación de puntos de mejora en ventas y rentabilidad",
+                    "Recomendaciones para optimizar catálogo y publicidad",
+                    "Hoja de ruta de crecimiento personalizada"
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-4 text-white/80 font-bold">
                       <div className="w-6 h-6 bg-[#4fd1d1] rounded-full flex items-center justify-center text-[#0e3a4d]">

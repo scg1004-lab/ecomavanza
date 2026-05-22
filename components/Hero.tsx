@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
               className="inline-flex items-center gap-2 bg-white/50 backdrop-blur-md border border-white px-5 py-2 rounded-full mb-8 shadow-sm"
             >
               <span className="w-2 h-2 bg-[#4fd1d1] rounded-full animate-ping"></span>
-              <span className="text-xs font-black text-[#0e3a4d] uppercase tracking-[0.2em]">Consultoría Amazon Élite 2025</span>
+              <span className="text-xs font-black text-[#0e3a4d] uppercase tracking-[0.2em]">Consultoría Estratégica para Amazon</span>
             </motion.div>
 
             <h1 className="text-6xl md:text-[5.5rem] font-black text-[#0e3a4d] leading-[1.05] mb-8 tracking-tighter">
@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-[#0e3a4d]/70 font-medium mb-12 max-w-xl leading-relaxed">
-              Ayudamos a marcas a crecer en Amazon optimizando listings, publicidad y estrategia de cuenta.
+              Optimizamos catálogo, publicidad y estrategia de cuenta para mejorar ventas, conversión y rentabilidad dentro de Amazon.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6">
