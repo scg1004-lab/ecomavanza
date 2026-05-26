@@ -6,13 +6,13 @@ const Services: React.FC = () => {
   const pillars: ServicePillar[] = [
     {
       id: "2.1",
-      title: "Gestión Integral de Cuenta Amazon",
-      description: "Gestionamos y optimizamos cada área de tu cuenta para mejorar ventas, estructura y rentabilidad dentro de Amazon.",
+      title: "Gestión de Cuenta Amazon",
+      description: "Gestionamos y optimizamos tu cuenta para mejorar ventas, estructura y rentabilidad.",
       items: [
-        { label: "Optimización de listings y catálogo ", detail: "Mejoramos contenido, estructura y posicionamiento de tus productos." },
-        { label: "Gestión de Seller Central ", detail: "Control operativo y estratégico de la cuenta desde un único sistema." },
-        { label: "Inventario y organización", detail: "Evitamos roturas de stock y mejoramos la eficiencia del catálogo." },
-        { label: "Mantenimiento continuo", detail: "Actualización constante de contenido, SEO y rendimiento general." },
+        { label: "Listings y catálogo ", detail: "Optimización de contenido, estructura y posicionamiento." },
+        { label: "Seller Central ", detail: "Gestión operativa y optimización de cuenta." },
+        { label: "Inventario y stock", detail: "Control para evitar roturas y mejorar organización." },
+        { label: "Mantenimiento continuo", detail: "Actualización de contenido, SEO y rendimiento." },
         
       ],
       icon: (
@@ -24,12 +24,12 @@ const Services: React.FC = () => {
     {
       id: "2.2",
       title: "Publicidad en Amazon",
-      description: "Creamos estrategias publicitarias enfocadas en escalar ventas manteniendo un crecimiento rentable.",
+      description: "Estrategias de Ads enfocadas en crecer de forma rentable.",
       items: [
-        { label: "Sponsored Ads", detail: "Gestión de campañas Sponsored Products, Brands y Display." },
-        { label: "Optimización de rentabilidad", detail: "Mejora continua de ACoS, TACoS y estructura publicitaria." },
-        { label: "Estrategias de escalado", detail: "Campañas diseñadas para aumentar visibilidad y conversión." },
-        { label: "Testing y análisis", detail: "Optimización basada en datos reales y pruebas constantes." }
+        { label: "Sponsored Ads", detail: "Gestión de Sponsored Products, Brands y Display." },
+        { label: "Rentabilidad publicitaria", detail: "Optimización continua de ACOS, TACOS y estructura." },
+        { label: "Optimización y escalado", detail: "Aumentamos visibilidad y conversión de forma rentable." },
+        { label: "Testing y análisis", detail: "Optimización basada en datos reales." }
       ],
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -40,12 +40,12 @@ const Services: React.FC = () => {
     {
       id: "2.3",
       title: "Optimización y Posicionamiento",
-      description: "Trabajamos la conversión y visibilidad de tus productos para mejorar resultados dentro de Amazon.",
+      description: "TMejoramos la visibilidad y conversión de tus productos en Amazon.",
       items: [
-        { label: "SEO y Keyword Research", detail: "Búsqueda estratégica de palabras clave y posicionamiento interno." },
-        { label: "Diseño de contenido", detail: "Imágenes, contenido A+ y Brand Store orientados a conversión." },
-        { label: "Traducción y localización", detail: "Adaptación de contenido para mercados internacionales." },
-        { label: "Product Research", detail: "Análisis de mercado y oportunidades de crecimiento." }
+        { label: "SEO y Keywords", detail: "Investigación y posicionamiento de palabras clave." },
+        { label: "Contenido visual", detail: "Imágenes, A+ Content y Brand Store orientados a conversión." },
+        { label: "Traducción y localización", detail: "Adaptación para mercados internacionales." },
+        { label: "Investigación de producto", detail: "Análisis de oportunidades de crecimiento." }
       ],
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -55,12 +55,12 @@ const Services: React.FC = () => {
     },
     {
       id: "2.4",
-      title: "Asesorías Privadas",
-      description: "Te ayudamos a entender qué está frenando tu crecimiento y cómo solucionarlo con una estrategia clara.",
+      title: "Consultoría estratégica",
+      description: "Te ayudamos a identificar qué está frenando el crecimiento de tu marca.",
       items: [
-        { label: "Auditoría de cuenta", detail: "Análisis completo de catálogo, publicidad y estructura." },
-        { label: "Resolución de problemas", detail: "Ayuda en bloqueos, incidencias y errores frecuentes." },
-        { label: "Estrategia personalizada", detail: "Planes de acción adaptados a tu marca y objetivos." },
+        { label: "Auditoría de cuenta", detail: "Análisis de catálogo, publicidad y estructura." },
+        { label: "Resolución de problemas", detail: "yuda en incidencias y bloqueos frecuentes." },
+        { label: "Estrategia personalizada", detail: "Planes de acción adaptados a tus objetivos." },
         { label: "Consultoría 1 a 1", detail: "Sesiones privadas para tomar decisiones con claridad." }
       ],
       icon: (
@@ -80,7 +80,7 @@ const Services: React.FC = () => {
           <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.4em] mb-4">Servicios Principales</h2>
           <h3 className="text-4xl md:text-5xl font-black text-[#0e3a4d] mb-8 leading-tight">Estrategia y gestión para crecer en Amazon</h3>
           <p className="text-xl text-slate-600 leading-relaxed font-medium">
-           <strong> Desde la creación y gestión de cuentas hasta publicidad, optimización y estrategia de crecimiento. Nos encargamos de las áreas que más impactan en ventas, conversión y rentabilidad dentro de Amazon.</strong>
+           <strong> Gestionamos las áreas que más impactan en ventas, conversión y rentabilidad dentro de Amazon.</strong>
           </p>
         </div>
 
