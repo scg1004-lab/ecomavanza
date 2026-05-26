@@ -30,7 +30,8 @@ const Advantages: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
           <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.4em] mb-4">Nuestra forma de trabajar</h2>
-          <h3 className="text-4xl md:text-5xl font-black text-white mb-6">Estrategia real para crecer en Amazon</h3>
+          <h3 className="text-4xl md:text-5xl font-black text-white mb-6">Gestionamos marcas desde la experiencia como vendedores</h3>
+          <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.4em] mb-4">Ayudamos a marcas a crecer en Amazon aplicando experiencia real en gestión de cuentas, catálogo y publicidad.</h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

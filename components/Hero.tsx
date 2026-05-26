@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-[#0e3a4d]/70 font-medium mb-12 max-w-xl leading-relaxed">
-              Optimizamos catálogo, publicidad y estrategia de cuenta para mejorar ventas, conversión y rentabilidad dentro de Amazon.
+              Somos vendedores reales en Amazon. Optimizamos catálogo, publicidad y estrategia de cuenta para mejorar ventas y rentabilidad.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6">
