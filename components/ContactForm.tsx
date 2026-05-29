@@ -27,8 +27,21 @@ const ContactForm: React.FC = () => {
             });
 
             if (!response.ok) {
-                const data = await response.json().catch(() => ({}));
-                throw new Error(data.error || 'No se pudo enviar el formulario');
+                let errorMsg = 'No se pudo enviar el formulario';
+                try {
+                    const text = await response.text();
+                    try {
+                        const data = JSON.parse(text);
+                        if (data && data.error) {
+                            errorMsg = data.error;
+                        }
+                    } catch {
+                        errorMsg = `Error (${response.status}): ${text.substring(0, 100)}`;
+                    }
+                } catch {
+                    errorMsg = `Error (${response.status})`;
+                }
+                throw new Error(errorMsg);
             }
 
             setFormState('success');

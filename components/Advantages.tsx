@@ -4,23 +4,23 @@ import React from 'react';
 const Advantages: React.FC = () => {
   const ads = [
     {
-      title: "Visión estratégica",
-      desc: "No aplicamos cambios al azar. Cada decisión tiene un objetivo claro dentro de la cuenta.",
-      icon: "🧠"
-    },
-    {
-      title: "Experiencia Real en Amazon",
-      desc: "Entendemos los problemas habituales de una cuenta porque trabajamos el día a día dentro de Amazon.",
+      title: "Experiencia real en Amazon",
+      desc: "Trabajamos Amazon desde dentro, no desde teoría.",
       icon: "📦"
     },
     {
+      title: "Operativa real",
+      desc: "Gestionamos catálogo, publicidad y cuentas en el día a día.",
+      icon: "⚙️" 
+    },
+    {
       title: "Decisiones basadas en datos",
-      desc: "Analizamos métricas reales para optimizar ventas, conversión y rentabilidad.",
+      desc: "Optimizamos ventas, conversión y rentabilidad con métricas reales.",
       icon: "📊"
     },
     {
-      title: "Enfoque en crecimiento rentable",
-      desc: "Buscamos resultados sostenibles, no solo aumentar facturación a cualquier precio.",
+      title: "Crecimiento rentable",
+      desc: "Buscamos escalar con margen, no solo aumentar facturación.",
       icon: "📈"
     }
   ];
