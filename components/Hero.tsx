@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
                 className="bg-[#0e3a4d] text-[#4fd1d1] px-10 py-6 rounded-[2rem] text-xl font-black shadow-2xl shadow-[#0e3a4d]/30 flex items-center justify-center gap-3"
               >
-                🎯 Auditoría de producto gratuita
+                Auditoría de producto gratuita
                 <Rocket size={24} />
               </motion.button>
 
