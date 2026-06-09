@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
                 className="bg-[#0e3a4d] text-[#4fd1d1] px-10 py-6 rounded-[2rem] text-xl font-black shadow-2xl shadow-[#0e3a4d]/30 flex items-center justify-center gap-3"
               >
-                Auditoría Gratuita
+                🎯 Auditoría de producto gratuita
                 <Rocket size={24} />
               </motion.button>
 
@@ -106,8 +106,8 @@ const Hero: React.FC = () => {
                   <BarChart3 size={24} />
                 </div>
                 <div>
-                  <p className="text-sm font-black text-slate-400 uppercase tracking-widest leading-none">Ventas</p>
-                  <p className="text-2xl font-black text-[#0e3a4d]">+342%</p>
+                  <p className="text-sm font-black text-slate-400 uppercase tracking-widest leading-none">🛒 Vendedores</p>
+                  <p className="text-2xl font-black text-[#0e3a4d]">Amazon</p>
                 </div>
               </div>
             </motion.div>
@@ -122,8 +122,8 @@ const Hero: React.FC = () => {
                   <Target size={24} />
                 </div>
                 <div>
-                  <p className="text-sm font-black text-white/50 uppercase tracking-widest leading-none">ROAS</p>
-                  <p className="text-2xl font-black text-[#4fd1d1]">12.4x</p>
+                  <p className="text-sm font-black text-white/50 uppercase tracking-widest leading-none">📈 Crecimiento </p>
+                  <p className="text-2xl font-black text-[#4fd1d1]">rentable</p>
                 </div>
               </div>
             </motion.div>
