@@ -30,7 +30,7 @@ const Header: React.FC = () => {
         : 'bg-transparent py-6'
     }`}>
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <a href="#" className="flex items-center gap-3 select-none">
           <motion.div 
             whileHover={{ rotate: 5, scale: 1.05 }}
             className="relative group cursor-pointer"
@@ -48,7 +48,7 @@ const Header: React.FC = () => {
               AVANZA
             </span>
           </div>
-        </div>
+        </a>
         
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-10">

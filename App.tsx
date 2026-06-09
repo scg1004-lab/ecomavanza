@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Header from './components/Navbar';
 import Hero from './components/Hero';
@@ -8,6 +8,7 @@ import Advantages from './components/Advantages';
 import ContactForm from './components/ContactForm';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import FAQ from './components/FAQ';
+import BlogArticle from './components/BlogArticle';
 
 // Motion Wrapper Component
 const RevealOnScroll: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -96,19 +97,22 @@ const Solutions: React.FC = () => {
 const Resources: React.FC = () => {
   const articles = [
     {
-      title: "Guía 2026: Inversión Amazon Ads",
-      desc: "Cómo calcular tu presupuesto publicitario real evitando los errores más comunes del sector.",
-      img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600"
+      id: "seo-amazon",
+      title: "SEO Amazon: los 7 factores que realmente mejoran el posicionamiento de un producto",
+      desc: "Descubre cómo funciona el algoritmo de Amazon y qué cambios pueden aumentar tu visibilidad orgánica y tus ventas.",
+      img: "/blog_seo_amazon.png"
     },
     {
-      title: "Anatomía de una Suspensión",
-      desc: "Cómo redactar un POA (Plan de Acción) que Amazon apruebe en el primer intento.",
-      img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=600"
+      id: "amazon-ppc",
+      title: "Amazon PPC: cuánto invertir para crecer sin disparar el ACOS",
+      desc: "Aprende a calcular un presupuesto publicitario rentable y evita los errores que hacen perder dinero a muchos vendedores.",
+      img: "/blog_amazon_ppc.png"
     },
     {
-      title: "IA Estratégica en Amazon",
-      desc: "Uso de automatización para optimización de precios y análisis de la competencia.",
-      img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600"
+      id: "errores-vendedores",
+      title: "7 errores que siguen frenando a muchos vendedores Amazon en 2026",
+      desc: "Después de gestionar nuestras propias marcas y cuentas de clientes, estos son los errores que más vemos repetir una y otra vez.",
+      img: "/blog_vendedores_errores.png"
     }
   ];
 
@@ -117,8 +121,8 @@ const Resources: React.FC = () => {
       <div className="container mx-auto px-6">
         <RevealOnScroll>
           <div className="text-center mb-16">
-            <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.3em] mb-4">Centro de Estrategia</h2>
-            <h3 className="text-4xl md:text-6xl font-black text-[#0e3a4d] mb-6 tracking-tighter">Conocimiento para Dominar</h3>
+            <h2 className="text-xs font-black text-[#4fd1d1] uppercase tracking-[0.3em] mb-4">Blog Amazon</h2>
+            <h3 className="text-4xl md:text-6xl font-black text-[#0e3a4d] mb-6 tracking-tighter">Consejos, estrategias y guias para vender más en Amazaon</h3>
           </div>
         </RevealOnScroll>
 
@@ -132,8 +136,8 @@ const Resources: React.FC = () => {
                 <div className="p-10">
                   <h4 className="text-xl font-black text-[#0e3a4d] mb-4 group-hover:text-[#4fd1d1] transition-colors leading-tight">{art.title}</h4>
                   <p className="text-slate-600 text-sm mb-8 font-medium leading-relaxed">{art.desc}</p>
-                  <a href="#" className="text-[#0e3a4d] font-black text-sm flex items-center gap-2 group/link">
-                    Explorar guía completa
+                  <a href={`#blog/${art.id}`} className="text-[#0e3a4d] font-black text-sm flex items-center gap-2 group/link">
+                    Leer guía completa
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover/link:translate-x-2 transition-transform" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
@@ -189,57 +193,98 @@ const Footer: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash);
+      
+      const hash = window.location.hash;
+      if (hash.startsWith('#blog/')) {
+        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+      } else if (hash) {
+        const id = hash.substring(1);
+        const element = document.getElementById(id);
+        if (element) {
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    
+    // Initial call in case the user landed with a hash
+    if (window.location.hash) {
+      handleHashChange();
+    }
+    
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const isBlogRoute = currentHash.startsWith('#blog/');
+  const blogArticleId = isBlogRoute ? currentHash.replace('#blog/', '') : '';
+
   return (
     <div className="min-h-screen selection:bg-[#4fd1d1] selection:text-[#0e3a4d] bg-white">
       <Header />
       <main>
-        <Hero />
+        {isBlogRoute ? (
+          <BlogArticle articleId={blogArticleId} />
+        ) : (
+          <>
+            <Hero />
 
-        <RevealOnScroll><PainPoints /></RevealOnScroll>
-        <RevealOnScroll><Services /></RevealOnScroll>
-        <RevealOnScroll><Advantages /></RevealOnScroll>
+            <RevealOnScroll><PainPoints /></RevealOnScroll>
+            <RevealOnScroll><Services /></RevealOnScroll>
+            <RevealOnScroll><Advantages /></RevealOnScroll>
 
-        <Solutions />
+            <Solutions />
 
-        {/* Contact Section */}
-        <section id="contacto" className="py-24 bg-[#0e3a4d] relative overflow-hidden">
-          <div className="absolute inset-0 z-0 opacity-10">
-            <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,#4fd1d1_0%,transparent_50%)]"></div>
-          </div>
+            {/* Contact Section */}
+            <section id="contacto" className="py-24 bg-[#0e3a4d] relative overflow-hidden">
+              <div className="absolute inset-0 z-0 opacity-10">
+                <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,#4fd1d1_0%,transparent_50%)]"></div>
+              </div>
 
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-20 items-center">
-              <div>
-                <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-tight">
-                  ¿Quieres mejorar el rendimiento de <br />
-                  <span className="text-[#4fd1d1]">tu cuenta en Amazon?</span>
-                </h2>
-                <p className="text-xl text-slate-300 font-bold mb-12 leading-relaxed">
-                  Te ayudamos a identificar qué está limitando el crecimiento de tu cuenta y cómo mejorar ventas, rentabilidad y conversión en Amazon.
-                </p>
-                <div className="space-y-6">
-                  {[
-                    "Análisis de tu cuenta actual en Amazon ",
-                    "Identificación de puntos de mejora en ventas y rentabilidad",
-                    "Recomendaciones para optimizar catálogo y publicidad",
-                    "Hoja de ruta de crecimiento personalizada"
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 text-white/80 font-bold">
-                      <div className="w-6 h-6 bg-[#4fd1d1] rounded-full flex items-center justify-center text-[#0e3a4d]">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" /></svg>
-                      </div>
-                      {item}
+              <div className="container mx-auto px-6 relative z-10">
+                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                  <div>
+                    <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-tight">
+                      ¿Quieres mejorar el rendimiento de <br />
+                      <span className="text-[#4fd1d1]">tu cuenta en Amazon?</span>
+                    </h2>
+                    <p className="text-xl text-slate-300 font-bold mb-12 leading-relaxed">
+                      Te ayudamos a identificar qué está limitando el crecimiento de tu cuenta y cómo mejorar ventas, rentabilidad y conversión en Amazon.
+                    </p>
+                    <div className="space-y-6">
+                      {[
+                        "Análisis de tu cuenta actual en Amazon ",
+                        "Identificación de puntos de mejora en ventas y rentabilidad",
+                        "Recomendaciones para optimizar catálogo y publicidad",
+                        "Hoja de ruta de crecimiento personalizada"
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-center gap-4 text-white/80 font-bold">
+                          <div className="w-6 h-6 bg-[#4fd1d1] rounded-full flex items-center justify-center text-[#0e3a4d]">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" /></svg>
+                          </div>
+                          {item}
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+                  <ContactForm />
                 </div>
               </div>
-              <ContactForm />
-            </div>
-          </div>
-        </section>
+            </section>
 
-        <Resources />
-        <RevealOnScroll><FAQ /></RevealOnScroll>
+            <Resources />
+            <RevealOnScroll><FAQ /></RevealOnScroll>
+          </>
+        )}
       </main>
       <Footer />
       <FloatingWhatsApp />
