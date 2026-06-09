@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
   React.useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = true;
-      videoRef.current.playbackRate = 0.45; // Reduce la velocidad al 45% para un movimiento más suave y premium
+      videoRef.current.playbackRate = 0.5; // Reduce la velocidad al 45% para un movimiento más suave y premium
       videoRef.current.play().catch(error => {
         console.log("Autoplay falló o fue bloqueado por el navegador:", error);
       });
@@ -106,7 +106,7 @@ const Hero: React.FC = () => {
                   <BarChart3 size={24} />
                 </div>
                 <div>
-                  <p className="text-sm font-black text-slate-400 uppercase tracking-widest leading-none">🛒 Vendedores</p>
+                  <p className="text-sm font-black text-slate-400 uppercase tracking-widest leading-none">Vendedores</p>
                   <p className="text-2xl font-black text-[#0e3a4d]">Amazon</p>
                 </div>
               </div>
@@ -122,7 +122,7 @@ const Hero: React.FC = () => {
                   <Target size={24} />
                 </div>
                 <div>
-                  <p className="text-sm font-black text-white/50 uppercase tracking-widest leading-none">📈 Crecimiento </p>
+                  <p className="text-sm font-black text-white/50 uppercase tracking-widest leading-none">Crecimiento </p>
                   <p className="text-2xl font-black text-[#4fd1d1]">rentable</p>
                 </div>
               </div>
