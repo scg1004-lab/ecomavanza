@@ -19,7 +19,7 @@ export default async function handler(req: any, res: any) {
     return json(res, 405, { error: 'Method not allowed' });
   }
 
-  const { RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL } = process.env;
+  const { RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL, GOOGLE_SHEET_WEBHOOK_URL } = process.env;
 
   if (!RESEND_API_KEY || !CONTACT_TO_EMAIL || !CONTACT_FROM_EMAIL) {
     return json(res, 500, { error: 'Email service is not configured' });
@@ -66,6 +66,26 @@ export default async function handler(req: any, res: any) {
     const error = await emailResponse.text();
     console.error('Resend error:', error);
     return json(res, 502, { error: 'No se pudo enviar el email' });
+  }
+
+  if (GOOGLE_SHEET_WEBHOOK_URL) {
+    try {
+      await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fecha: new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }),
+          nombre: name,
+          email: email,
+          empresa: company,
+          mensaje: message,
+        }),
+      });
+    } catch (err) {
+      console.error('Google Sheet webhook error:', err);
+    }
   }
 
   return json(res, 200, { ok: true });

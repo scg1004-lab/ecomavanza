@@ -9,6 +9,8 @@ import ContactForm from './components/ContactForm';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import FAQ from './components/FAQ';
 import BlogArticle from './components/BlogArticle';
+import Backoffice from './components/Backoffice';
+import { getArticles } from './services/articlesService';
 
 // Motion Wrapper Component
 const RevealOnScroll: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -95,26 +97,8 @@ const Solutions: React.FC = () => {
 };
 
 const Resources: React.FC = () => {
-  const articles = [
-    {
-      id: "seo-amazon",
-      title: "SEO Amazon: los 7 factores que realmente mejoran el posicionamiento de un producto",
-      desc: "Descubre cómo funciona el algoritmo de Amazon y qué cambios pueden aumentar tu visibilidad orgánica y tus ventas.",
-      img: "/blog_seo_amazon.png"
-    },
-    {
-      id: "amazon-ppc",
-      title: "Amazon PPC: cuánto invertir para crecer sin disparar el ACOS",
-      desc: "Aprende a calcular un presupuesto publicitario rentable y evita los errores que hacen perder dinero a muchos vendedores.",
-      img: "/blog_amazon_ppc.png"
-    },
-    {
-      id: "errores-vendedores",
-      title: "7 errores que siguen frenando a muchos vendedores Amazon en 2026",
-      desc: "Después de gestionar nuestras propias marcas y cuentas de clientes, estos son los errores que más vemos repetir una y otra vez.",
-      img: "/blog_vendedores_errores.png"
-    }
-  ];
+  // Fetch articles dynamically and filter out drafts
+  const articles = getArticles().filter(art => !art.isDraft);
 
   return (
     <section id="recursos" className="py-24 bg-[#f0f9fa]">
@@ -131,7 +115,7 @@ const Resources: React.FC = () => {
             <RevealOnScroll key={idx}>
               <div className="bg-white h-full rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group border border-slate-100">
                 <div className="h-56 overflow-hidden">
-                  <img src={art.img} alt={art.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <img src={art.image} alt={art.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
                 <div className="p-10">
                   <h4 className="text-xl font-black text-[#0e3a4d] mb-4 group-hover:text-[#4fd1d1] transition-colors leading-tight">{art.title}</h4>
@@ -227,12 +211,15 @@ const App: React.FC = () => {
 
   const isBlogRoute = currentHash.startsWith('#blog/');
   const blogArticleId = isBlogRoute ? currentHash.replace('#blog/', '') : '';
+  const isAdminRoute = currentHash === '#admin' || currentHash === '#backoffice';
 
   return (
     <div className="min-h-screen selection:bg-[#4fd1d1] selection:text-[#0e3a4d] bg-white">
       <Header />
       <main>
-        {isBlogRoute ? (
+        {isAdminRoute ? (
+          <Backoffice />
+        ) : isBlogRoute ? (
           <BlogArticle articleId={blogArticleId} />
         ) : (
           <>
