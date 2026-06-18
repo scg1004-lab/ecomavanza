@@ -1,12 +1,13 @@
 
 import React from 'react';
+import { LayoutDashboard, Megaphone, Search, Brain } from 'lucide-react';
 import { ServicePillar } from '../types';
 
 const Services: React.FC = () => {
   const pillars: ServicePillar[] = [
     {
       id: "2.1",
-      title: "Gestión de Cuenta Amazon",
+      title: "Gestión de cuentas Amazon",
       description: "Gestionamos y optimizamos tu cuenta para mejorar ventas, estructura y rentabilidad.",
       items: [
         { label: "Listings y catálogo ", detail: "Optimización de contenido, estructura y posicionamiento." },
@@ -15,11 +16,7 @@ const Services: React.FC = () => {
         { label: "Mantenimiento continuo", detail: "Actualización de contenido, SEO y rendimiento." },
         
       ],
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-        </svg>
-      )
+      icon: <LayoutDashboard className="h-8 w-8" />
     },
     {
       id: "2.2",
@@ -31,43 +28,31 @@ const Services: React.FC = () => {
         { label: "Optimización y escalado", detail: "Aumentamos visibilidad y conversión de forma rentable." },
         { label: "Testing y análisis", detail: "Optimización basada en datos reales." }
       ],
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-        </svg>
-      )
+      icon: <Megaphone className="h-8 w-8" />
     },
     {
       id: "2.3",
-      title: "Optimización y Posicionamiento",
-      description: "TMejoramos la visibilidad y conversión de tus productos en Amazon.",
+      title: "Optimización de listings Amazon",
+      description: "Mejoramos la visibilidad y conversión de tus productos en Amazon.",
       items: [
         { label: "SEO y Keywords", detail: "Investigación y posicionamiento de palabras clave." },
         { label: "Contenido visual", detail: "Imágenes, A+ Content y Brand Store orientados a conversión." },
         { label: "Traducción y localización", detail: "Adaptación para mercados internacionales." },
         { label: "Investigación de producto", detail: "Análisis de oportunidades de crecimiento." }
       ],
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04M12 21.48V11.5" />
-        </svg>
-      )
+      icon: <Search className="h-8 w-8" />
     },
     {
       id: "2.4",
-      title: "Consultoría estratégica",
+      title: "Consultoría Amazon",
       description: "Te ayudamos a identificar qué está frenando el crecimiento de tu marca.",
       items: [
         { label: "Auditoría de cuenta", detail: "Análisis de catálogo, publicidad y estructura." },
-        { label: "Resolución de problemas", detail: "yuda en incidencias y bloqueos frecuentes." },
+        { label: "Resolución de problemas", detail: "Ayuda en incidencias y bloqueos frecuentes." },
         { label: "Estrategia personalizada", detail: "Planes de acción adaptados a tus objetivos." },
         { label: "Consultoría 1 a 1", detail: "Sesiones privadas para tomar decisiones con claridad." }
       ],
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1a2.5 2.5 0 012.5 2.5v.658M18 9.405V10a2 2 0 01-2 2h-1a2 2 0 00-2 2v3.195M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      )
+      icon: <Brain className="h-8 w-8" />
     }
   ];
 

@@ -139,10 +139,7 @@ const Resources: React.FC = () => {
 const Footer: React.FC = () => {
   // Array de redes sociales con los links correspondientes
   const socialLinks = [
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/ecomavanza/' }, // <-- AQUI TU ENLACE DE LINKEDIN
-    { name: 'Twitter', url: '#' },
-    { name: 'YouTube', url: '#' },
-    { name: 'Instagram', url: '#' }
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/ecomavanza/' }
   ];
 
   return (
@@ -152,7 +149,7 @@ const Footer: React.FC = () => {
           <div className="w-12 h-12 bg-[#4fd1d1] rounded-xl flex items-center justify-center text-[#0e3a4d] font-black text-2xl rotate-3 shadow-lg shadow-[#4fd1d1]/20">E</div>
           <span className="text-2xl font-black text-white tracking-tighter">ECOM <span className="text-[#4fd1d1]">AVANZA</span></span>
         </div>
-        <p className="text-slate-400 text-sm mb-12 font-bold max-w-lg mx-auto leading-relaxed">Transformamos la complejidad de Amazon en tu mayor ventaja competitiva. El socio definitivo para el éxito global.</p>
+        <p className="text-slate-400 text-sm mb-12 font-bold max-w-lg mx-auto leading-relaxed">Ayudamos a marcas a crecer en Amazon con estrategia, datos y experiencia real como vendedores.</p>
         
         <div className="flex justify-center gap-10 mb-12">
           {socialLinks.map(social => (
@@ -169,7 +166,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="h-px w-full max-w-2xl mx-auto bg-white/10 mb-10"></div>
-        <p className="text-slate-600 text-[10px] font-black uppercase tracking-[0.3em]">© 2026 ECOM AVANZA - Consultoría Estratégica Élite. Todos los derechos reservados.</p>
+        <p className="text-slate-600 text-[10px] font-black uppercase tracking-[0.3em]">© 2026 ECOM AVANZA - Consultoría Estratégica para Amazon. Todos los derechos reservados.</p>
       </div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#4fd1d1]/5 rounded-full blur-[100px]"></div>
     </footer>

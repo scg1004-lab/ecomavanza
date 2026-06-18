@@ -52,11 +52,11 @@ const FAQ: React.FC = () => {
 
   const faqs = [
     {
-      q: "¿Qué hace exactamente una agencia de Amazon como EcomAvanza?",
+      q: "¿Qué hace exactamente una agencia Amazon?",
       a: (
         <p>
-          Una agencia de Amazon se encarga de gestionar y optimizar tu cuenta para que vendas más y con más control.
-          En <strong>EcomAvanza</strong> trabajamos todo lo que influye en tus resultados: listings, Amazon Ads, catálogo y estrategia general dentro de Seller Central.
+          Una agencia Amazon se encarga de gestionar y optimizar los aspectos más importantes de una cuenta para mejorar ventas, visibilidad y rentabilidad.
+          En <strong>EcomAvanza</strong> trabajamos áreas como la gestión de cuenta, Amazon Ads, optimización de listings, catálogo y estrategia de crecimiento dentro de Seller Central.
         </p>
       )
     },
@@ -64,35 +64,35 @@ const FAQ: React.FC = () => {
       q: "¿Cómo podéis ayudarme a vender más en Amazon?",
       a: (
         <p>
-          Analizamos tu cuenta y detectamos qué está frenando tus ventas (visibilidad, conversión o publicidad).
-          A partir de ahí, optimizamos tus productos, mejoramos la estrategia de anuncios y trabajamos para que tu marca crezca de forma estable y rentable.
+          Analizamos tu situación para identificar qué está limitando el crecimiento de tu cuenta: posicionamiento, conversión, publicidad o estructura del catálogo.
+          A partir de ahí, aplicamos mejoras en los productos, la publicidad y la estrategia para ayudarte a crecer de forma rentable y sostenible.
         </p>
       )
     },
     {
-      q: "¿Qué tipo de empresas o marcas trabajáis?",
+      q: "¿Trabajáis con vendedores y marcas que ya venden en Amazon?",
       a: (
         <p>
-          Trabajamos tanto con marcas que empiezan en Amazon como con cuentas ya activas que no están consiguiendo los resultados esperados.
-          Nos adaptamos al nivel de cada negocio, desde lanzamientos hasta escalado de cuentas con volumen.
+          Sí. Trabajamos tanto con marcas que ya venden en Amazon como con empresas que están preparando su lanzamiento.
+          Nos adaptamos al punto en el que se encuentre cada negocio, desde las primeras ventas hasta cuentas consolidadas que buscan seguir creciendo.
         </p>
       )
     },
     {
-      q: "¿Cómo es el proceso para empezar a trabajar con vosotros?",
+      q: "¿Cómo empezar a trabajar con una agencia Amazon?",
       a: (
         <p>
-          Empezamos con una llamada donde revisamos tu situación y objetivos.
-          Después te proponemos un plan claro con prioridades y siguientes pasos. Si encaja, arrancamos con la optimización y el seguimiento continuo.
+          El primer paso es una llamada inicial para conocer tu situación, objetivos y necesidades.
+          Después analizamos tu caso y te proponemos un plan de acción claro con las prioridades y oportunidades detectadas. Si encaja para ambas partes, comenzamos a trabajar juntos.
         </p>
       )
     },
     {
-      q: "¿Cuánto cuesta trabajar con EcomAvanza?",
+      q: "¿Cuánto cuesta contratar una agencia Amazon?",
       a: (
         <p>
-          Depende del tamaño de la cuenta y el nivel de gestión que necesites.
-          Trabajamos con una cuota fija mensual y, en algunos casos, un variable ligado a resultados. Siempre lo definimos de forma transparente antes de empezar.
+          El coste depende del tamaño de la cuenta, los servicios necesarios y el nivel de gestión requerido.
+          Trabajamos con una cuota mensual adaptada a cada proyecto y, en algunos casos, un variable vinculado a resultados. Siempre definimos las condiciones de forma transparente antes de empezar.
         </p>
       )
     },
@@ -100,21 +100,21 @@ const FAQ: React.FC = () => {
       q: "¿En cuánto tiempo se ven resultados?",
       a: (
         <div className="space-y-2">
-          <p>Depende del punto de partida, pero normalmente:</p>
+          <p>Depende del punto de partida de cada cuenta, pero normalmente:</p>
           <ul className="list-disc pl-5 space-y-1">
-            <li><strong>En listings:</strong> mejoras en 2–4 semanas</li>
-            <li><strong>En Amazon Ads:</strong> primeros datos claros en 1–2 semanas de aprendizaje</li>
-            <li><strong>En crecimiento global:</strong> evolución más sólida a partir del primer mes</li>
+            <li><strong>Listings y catálogo:</strong> mejoras visibles entre 2 y 4 semanas.</li>
+            <li><strong>Amazon Ads:</strong> primeros datos relevantes tras 1 o 2 semanas de aprendizaje.</li>
+            <li><strong>Crecimiento global de la cuenta:</strong> resultados más sólidos a partir del primer mes de trabajo.</li>
           </ul>
         </div>
       )
     },
     {
-      q: "¿Voy a tener control sobre mi cuenta si la delego?",
+      q: "¿Qué diferencia a EcomAvanza de otras agencias Amazon?",
       a: (
         <p>
-          Sí, siempre.
-          Tú eres el propietario de la cuenta y tienes acceso total. Además, te explicamos qué hacemos y por qué, con reportes claros para que entiendas la evolución del negocio.
+          La principal diferencia es que también somos vendedores en Amazon.
+          No trabajamos únicamente desde la teoría o la consultoría, sino desde la experiencia práctica de gestionar nuestros propios productos dentro del marketplace. Aplicamos ese conocimiento para ayudar a otras marcas a tomar mejores decisiones y crecer con mayor seguridad.
         </p>
       )
     },
@@ -123,7 +123,7 @@ const FAQ: React.FC = () => {
       a: (
         <p>
           Sí. No trabajamos con permanencias.
-          Nuestro objetivo es que te quedes porque ves resultados, no porque tengas un contrato que te obligue.
+          Queremos que sigas con nosotros porque el servicio te aporta valor y resultados, no porque exista una obligación contractual.
         </p>
       )
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Rocket, Target, BarChart3, Globe, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Search, TrendingUp, Package, Globe, ArrowRight, ShieldCheck } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-[#0e3a4d]/70 font-medium mb-12 max-w-xl leading-relaxed">
-              Somos vendedores reales en Amazon. Optimizamos catálogo, publicidad y estrategia de cuenta para mejorar ventas y rentabilidad.
+              Somos vendedores reales en Amazon. Ayudamos a marcas y vendedores a optimizar catálogo, publicidad y estrategia de cuenta para aumentar ventas y rentabilidad.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6">
@@ -55,7 +55,7 @@ const Hero: React.FC = () => {
                 className="bg-[#0e3a4d] text-[#4fd1d1] px-10 py-6 rounded-[2rem] text-xl font-black shadow-2xl shadow-[#0e3a4d]/30 flex items-center justify-center gap-3"
               >
                 Auditoría de producto gratuita
-                <Rocket size={24} />
+                <Search size={24} />
               </motion.button>
 
               <div className="flex items-center gap-4 px-6 py-4">
@@ -103,7 +103,7 @@ const Hero: React.FC = () => {
             >
               <div className="flex items-center gap-4 mb-2">
                 <div className="w-12 h-12 bg-[#4fd1d1]/20 rounded-2xl flex items-center justify-center text-[#4fd1d1]">
-                  <BarChart3 size={24} />
+                  <Package size={24} />
                 </div>
                 <div>
                   <p className="text-sm font-black text-slate-400 uppercase tracking-widest leading-none">Vendedores</p>
@@ -119,7 +119,7 @@ const Hero: React.FC = () => {
             >
               <div className="flex items-center gap-4 mb-2">
                 <div className="w-12 h-12 bg-[#4fd1d1] rounded-2xl flex items-center justify-center text-[#0e3a4d]">
-                  <Target size={24} />
+                  <TrendingUp size={24} />
                 </div>
                 <div>
                   <p className="text-sm font-black text-white/50 uppercase tracking-widest leading-none">Crecimiento </p>
