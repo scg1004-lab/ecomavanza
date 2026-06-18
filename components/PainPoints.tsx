@@ -38,7 +38,7 @@ const PainPoints: React.FC = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {points.map((p, idx) => (
-            <div key={idx} className="p-10 bg-white rounded-[2rem] hover:shadow-2xl transition-all duration-300 border border-slate-100 group hover:-translate-y-2">
+            <div key={idx} className="p-10 bg-white rounded-[2rem] hover:shadow-2xl transition-all duration-300 border border-slate-100 group hover:-translate-y-2 text-center flex flex-col items-center">
               <div className="text-5xl mb-8 bg-[#f0f9fa] w-20 h-20 rounded-2xl flex items-center justify-center group-hover:bg-[#4fd1d1]/10 transition-colors">{p.icon}</div>
               <h4 className="text-xl font-black text-[#0e3a4d] mb-4">{p.title}</h4>
               <p className="text-slate-600 leading-relaxed text-sm font-medium">{p.desc}</p>
