@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Lock, Search, Plus, Edit, Trash2, Eye, Copy, Download, 
   ArrowLeft, Check, AlertCircle, ToggleLeft, ToggleRight, 
-  FileCode, X, Save, EyeOff, User, Calendar, Clock, Sparkles
+  FileCode, X, Save, EyeOff, User, Calendar, Clock, Sparkles,
+  Printer, Mail, FileText
 } from 'lucide-react';
 import { 
   Article, getArticles, saveArticle, deleteArticle, 
@@ -148,10 +149,94 @@ const Backoffice: React.FC = () => {
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  // Backoffice mode tab (Blog or Facturas)
+  const [backofficeMode, setBackofficeMode] = useState<'blog' | 'facturas'>('blog');
+
+  // Invoice Generator State
+  const [issuerName, setIssuerName] = useState('EMPORIUM E-COMMERCE SL');
+  const [issuerNif, setIssuerNif] = useState('B56834153');
+  const [issuerAddr, setIssuerAddr] = useState('Avd. Gandía 43 A 2º-16');
+  const [issuerCity, setIssuerCity] = useState('03700 - Denia');
+  const [issuerCountry, setIssuerCountry] = useState('España');
+  const [issuerLogo, setIssuerLogo] = useState('EA');
+
+  const [invoiceNum, setInvoiceNum] = useState('001');
+  const [invoiceDate, setInvoiceDate] = useState(() => {
+    return new Date().toISOString().split('T')[0];
+  });
+
+  const [clientName, setClientName] = useState('LEJOSEL, S.L.');
+  const [clientNif, setClientNif] = useState('B70792148');
+  const [clientAddr, setClientAddr] = useState('Plaza Poeta Alfonso Canales, 4, 1º, 29001 Málaga');
+
+  const [invoiceLines, setInvoiceLines] = useState<Array<{ id: number; desc: string; qty: number; price: number }>>([
+    { id: 1, desc: '5 sesiones Gestión cuenta Amazon', qty: 1, price: 375 }
+  ]);
+
+  const [invoiceIva, setInvoiceIva] = useState(21);
+  const [invoiceCurrency, setInvoiceCurrency] = useState('€');
+  const [invoiceNotes, setInvoiceNotes] = useState('');
+  const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+
+  // Helper to add invoice line
+  const addInvoiceLine = () => {
+    const newId = invoiceLines.length > 0 ? Math.max(...invoiceLines.map(l => l.id)) + 1 : 1;
+    setInvoiceLines([
+      ...invoiceLines,
+      { id: newId, desc: '', qty: 1, price: 0 }
+    ]);
+  };
+
+  // Helper to remove invoice line
+  const removeInvoiceLine = (id: number) => {
+    setInvoiceLines(invoiceLines.filter(l => l.id !== id));
+  };
+
+  // Helper to update invoice line field
+  const updateInvoiceLine = (id: number, field: 'desc' | 'qty' | 'price', value: any) => {
+    setInvoiceLines(invoiceLines.map(l => {
+      if (l.id === id) {
+        if (field === 'qty') {
+          return { ...l, qty: parseInt(value) || 0 };
+        }
+        if (field === 'price') {
+          return { ...l, price: parseFloat(value) || 0 };
+        }
+        return { ...l, [field]: value };
+      }
+      return l;
+    }));
+  };
+
+  // Calculation helpers
+  const getSubtotal = () => {
+    return invoiceLines.reduce((acc, l) => acc + (l.qty * l.price), 0);
+  };
+
+  const getIvaAmount = () => {
+    return getSubtotal() * (invoiceIva / 100);
+  };
+
+  const getInvoiceTotal = () => {
+    return getSubtotal() + getIvaAmount();
+  };
+
+  const formatCurrency = (amount: number) => {
+    return amount.toFixed(2).replace('.', ',') + ' ' + invoiceCurrency;
+  };
+
+  // Email helper
+  const sendByMail = () => {
+    const subject = encodeURIComponent(`Factura ${invoiceNum} - ${issuerName}`);
+    const body = encodeURIComponent(`Estimado/a ${clientName},\n\nAdjunto encontrarás la factura nº ${invoiceNum}.\nPara guardarla en PDF usa Imprimir → Guardar como PDF.\n\nSaludos,\n${issuerName}`);
+    window.open(`mailto:?subject=${subject}&body=${body}`);
+  };
+
   // Sync articles list on mount
   useEffect(() => {
     setArticles(getArticles());
   }, []);
+
 
   // Handle Login
   const handleLogin = (e: React.FormEvent) => {
@@ -363,168 +448,667 @@ const Backoffice: React.FC = () => {
     );
   }
 
-  return (
-    <div className="bg-[#f0f9fa] min-h-screen pt-28 pb-24">
-      <div className="container mx-auto px-6 max-w-6xl">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="px-3 py-1 rounded-full bg-[#0e3a4d]/5 text-[#0e3a4d] font-black text-[10px] uppercase tracking-widest">
-                Panel de Control
-              </span>
-              <span className="flex items-center gap-1 text-[10px] text-green-600 font-extrabold uppercase bg-green-50 px-2 py-0.5 rounded-full">
-                <Sparkles size={10} /> Conectado local
-              </span>
-            </div>
-            <h1 className="text-4xl font-black text-[#0e3a4d] tracking-tight">Blog Amazon - Backoffice</h1>
-          </div>
-
-          <div className="flex flex-wrap gap-4">
+  if (backofficeMode === 'facturas' && isPreviewVisible) {
+    return (
+      <div className="bg-slate-100 min-h-screen pt-28 pb-24 print-invoice-container">
+        <style>{`
+          @media print {
+            body {
+              background: white !important;
+              color: black !important;
+            }
+            header, footer, nav, button, .no-print, .preview-bar {
+              display: none !important;
+            }
+            main {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+            .invoice-preview-sheet {
+              box-shadow: none !important;
+              border: none !important;
+              border-radius: 0 !important;
+              max-width: 100% !important;
+              padding: 0 !important;
+              margin: 0 !important;
+            }
+            .print-invoice-container {
+              background: white !important;
+              padding: 0 !important;
+              min-height: auto !important;
+            }
+          }
+        `}</style>
+        <div className="container mx-auto px-6 max-w-4xl">
+          {/* Action Bar */}
+          <div className="preview-bar flex justify-between items-center mb-6 no-print bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
             <button
-              onClick={() => setIsExportOpen(true)}
-              className="inline-flex items-center gap-2 bg-white text-[#0e3a4d] border border-[#0e3a4d]/10 hover:border-[#0e3a4d]/30 px-6 py-3.5 rounded-2xl font-black text-sm shadow-sm transition-all active:scale-95"
+              onClick={() => setIsPreviewVisible(false)}
+              className="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-[#0e3a4d] px-5 py-2.5 rounded-xl font-bold text-sm transition-all"
             >
-              <FileCode size={18} className="text-[#4fd1d1]" />
-              Exportar Cambios a Código
+              <ArrowLeft size={16} />
+              Volver a editar
             </button>
-            <button
-              onClick={handleAddNew}
-              className="inline-flex items-center gap-2 bg-[#0e3a4d] text-white hover:bg-[#0e3a4d]/90 px-6 py-3.5 rounded-2xl font-black text-sm shadow-lg shadow-[#0e3a4d]/10 transition-all active:scale-95"
-            >
-              <Plus size={18} className="text-[#4fd1d1]" />
-              Añadir Nuevo Artículo
-            </button>
-          </div>
-        </div>
-
-        {/* Dashboard Content */}
-        <div className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl border border-slate-100">
-          {/* Search bar & statistics */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8 border-b border-slate-100 pb-6">
-            <div className="relative w-full md:max-w-md">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-              <input
-                type="text"
-                placeholder="Buscar artículo por título o categoría..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-50 border-none rounded-2xl py-3.5 pl-12 pr-4 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
-              />
-            </div>
-            <div className="text-sm font-bold text-slate-500 shrink-0">
-              Total: <span className="text-[#0e3a4d] font-black">{articles.length}</span> artículos |
-              Publicados: <span className="text-green-600 font-black">{articles.filter(a => !a.isDraft).length}</span> |
-              Borradores: <span className="text-amber-500 font-black">{articles.filter(a => a.isDraft).length}</span>
+            <div className="flex gap-3">
+              <button
+                onClick={sendByMail}
+                className="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-md shadow-teal-600/10"
+              >
+                <Mail size={16} />
+                Enviar por email
+              </button>
+              <button
+                onClick={() => window.print()}
+                className="inline-flex items-center gap-2 bg-[#0e3a4d] hover:bg-[#0e3a4d]/90 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-md shadow-[#0e3a4d]/10"
+              >
+                <Printer size={16} className="text-[#4fd1d1]" />
+                Imprimir / PDF
+              </button>
             </div>
           </div>
 
-          {/* Table list */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-slate-100 text-slate-400 text-[10px] font-black uppercase tracking-wider">
-                  <th className="pb-4 pl-4">Detalles del Artículo</th>
-                  <th className="pb-4">Categoría</th>
-                  <th className="pb-4">Fecha / Autor</th>
-                  <th className="pb-4 text-center">Estado</th>
-                  <th className="pb-4 pr-4 text-right">Acciones</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 text-sm font-semibold text-slate-700">
-                {filteredArticles.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="py-12 text-center text-slate-400 font-medium italic">
-                      No se encontraron artículos.
-                    </td>
+          {/* Invoice A4 Sheet */}
+          <div className="invoice-preview-sheet bg-white rounded-[2rem] p-12 md:p-16 shadow-xl border border-slate-100 font-sans text-[#111] max-w-4xl mx-auto">
+            {/* Cabecera */}
+            <div className="flex justify-between items-start mb-10 pb-8 border-b border-slate-100">
+              <div>
+                <h1 className="text-4xl font-black uppercase tracking-tight text-[#0e3a4d] mb-4">Factura</h1>
+                <div className="text-sm leading-relaxed text-slate-700">
+                  <strong className="block text-base font-extrabold text-[#0e3a4d] mb-1">{issuerName}</strong>
+                  <div>NIF: {issuerNif}</div>
+                  <div>{issuerAddr}</div>
+                  <div>{issuerCity}</div>
+                  <div>{issuerCountry}</div>
+                </div>
+              </div>
+
+              {/* Logo EcomAvanza corporativo */}
+              <div className="flex items-center gap-3 select-none shrink-0 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <div className="w-10 h-10 bg-[#0e3a4d] rounded-xl flex items-center justify-center text-white font-black text-xl relative overflow-hidden shadow-md">
+                   <span className="relative z-10">E</span>
+                   <div className="absolute bottom-0 right-0 w-4 h-4 bg-[#4fd1d1] rotate-45 translate-x-1 translate-y-1"></div>
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-lg font-black tracking-tighter leading-none text-[#0e3a4d]">
+                    ECOM
+                  </span>
+                  <span className="text-[0.55rem] font-black tracking-[0.3em] leading-none text-[#4fd1d1]">
+                    AVANZA
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Meta e Info de Factura */}
+            <div className="grid md:grid-cols-2 gap-8 mb-10">
+              <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                <h3 className="text-xs uppercase font-black tracking-widest text-[#4fd1d1] mb-2">Facturar a</h3>
+                <div className="text-sm leading-relaxed text-slate-800">
+                  <strong className="block font-extrabold text-[#0e3a4d] mb-1">{clientName}</strong>
+                  <div className="whitespace-pre-line">{clientAddr}</div>
+                  <div className="mt-1 font-bold">NIF: {clientNif}</div>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center items-end text-right">
+                <div className="mb-4">
+                  <div className="text-[10px] uppercase font-black tracking-widest text-slate-400">Nº de Factura</div>
+                  <div className="text-xl font-black text-[#0e3a4d]">{invoiceNum}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] uppercase font-black tracking-widest text-slate-400">Fecha</div>
+                  <div className="text-sm font-bold text-[#0e3a4d]">
+                    {invoiceDate ? new Date(invoiceDate).toLocaleDateString('es-ES') : ''}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Tabla de líneas */}
+            <div className="overflow-x-auto mb-10">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-[#0e3a4d] text-white text-xs font-black uppercase tracking-wider">
+                    <th className="py-3 px-4 rounded-l-xl text-center w-20">Cant.</th>
+                    <th className="py-3 px-4">Descripción</th>
+                    <th className="py-3 px-4 text-right w-36">Precio Unitario</th>
+                    <th className="py-3 px-4 rounded-r-xl text-right w-36">Importe</th>
                   </tr>
-                ) : (
-                  filteredArticles.map((art) => (
-                    <tr key={art.id} className="hover:bg-slate-50/50 transition-colors">
-                      {/* Image + Title */}
-                      <td className="py-5 pl-4 flex items-center gap-4 max-w-sm">
-                        <div className="w-14 h-10 rounded-lg overflow-hidden shrink-0 bg-slate-100 border border-slate-200">
-                          <img src={art.image} alt="" className="w-full h-full object-cover" />
-                        </div>
-                        <div className="min-w-0">
-                          <h4 className="font-extrabold text-[#0e3a4d] truncate max-w-xs" title={art.title}>
-                            {art.title}
-                          </h4>
-                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight block truncate">
-                            ID/Slug: {art.id}
-                          </span>
-                        </div>
-                      </td>
-                      {/* Category */}
-                      <td className="py-5">
-                        <span className="px-2.5 py-1 rounded-full bg-[#f0f9fa] text-[#4fd1d1] font-black text-xs uppercase tracking-wider">
-                          {art.category}
-                        </span>
-                      </td>
-                      {/* Date & Author */}
-                      <td className="py-5 text-xs">
-                        <div className="font-bold text-[#0e3a4d]">{art.date}</div>
-                        <div className="text-slate-400">{art.author}</div>
-                      </td>
-                      {/* Status (Toggle) */}
-                      <td className="py-5 text-center">
-                        <button
-                          onClick={() => handleToggleDraft(art)}
-                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider transition-colors ${
-                            art.isDraft 
-                              ? 'bg-amber-50 text-amber-600 hover:bg-amber-100' 
-                              : 'bg-green-50 text-green-600 hover:bg-green-100'
-                          }`}
-                        >
-                          {art.isDraft ? (
-                            <>
-                              <EyeOff size={12} />
-                              Borrador
-                            </>
-                          ) : (
-                            <>
-                              <Eye size={12} />
-                              Publicado
-                            </>
-                          )}
-                        </button>
-                      </td>
-                      {/* Actions */}
-                      <td className="py-5 pr-4 text-right">
-                        <div className="inline-flex gap-2">
-                          <a
-                            href={`#blog/${art.id}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 text-slate-400 hover:text-[#0e3a4d] hover:bg-slate-100 rounded-xl transition-all"
-                            title="Ver en el Blog"
-                          >
-                            <Eye size={16} />
-                          </a>
-                          <button
-                            onClick={() => handleEdit(art)}
-                            className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
-                            title="Editar"
-                          >
-                            <Edit size={16} />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(art.id, art.title)}
-                            className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
-                            title="Eliminar"
-                          >
-                            <Trash2 size={16} />
-                          </button>
-                        </div>
-                      </td>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-sm">
+                  {invoiceLines.map((line) => (
+                    <tr key={line.id}>
+                      <td className="py-4 px-4 text-center text-slate-600 font-bold">{line.qty}</td>
+                      <td className="py-4 px-4 font-semibold text-slate-800">{line.desc}</td>
+                      <td className="py-4 px-4 text-right text-slate-600 font-medium">{formatCurrency(line.price)}</td>
+                      <td className="py-4 px-4 text-right font-bold text-[#0e3a4d]">{formatCurrency(line.qty * line.price)}</td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Totales */}
+            <div className="flex justify-end mb-10">
+              <table className="w-64 text-sm font-semibold text-slate-700">
+                <tbody>
+                  <tr className="border-b border-slate-100">
+                    <td className="py-2 text-slate-400 uppercase font-black text-[10px] tracking-wider">Subtotal</td>
+                    <td className="py-2 text-right font-bold text-[#0e3a4d]">{formatCurrency(getSubtotal())}</td>
+                  </tr>
+                  {invoiceIva > 0 && (
+                    <tr className="border-b border-slate-100">
+                      <td className="py-2 text-slate-400 uppercase font-black text-[10px] tracking-wider">IVA ({invoiceIva}%)</td>
+                      <td className="py-2 text-right font-bold text-[#0e3a4d]">{formatCurrency(getIvaAmount())}</td>
+                    </tr>
+                  )}
+                  <tr className="text-lg font-black text-[#0e3a4d]">
+                    <td className="py-3 uppercase text-xs tracking-wider">Total</td>
+                    <td className="py-3 text-right text-2xl font-black text-[#0e3a4d]">{formatCurrency(getInvoiceTotal())}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Observaciones */}
+            {invoiceNotes && (
+              <div className="border-t border-slate-100 pt-6 mt-8">
+                <h4 className="text-[10px] uppercase font-black tracking-widest text-[#4fd1d1] mb-2">Observaciones / Forma de pago</h4>
+                <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">{invoiceNotes}</p>
+              </div>
+            )}
+
+            {/* Pie de factura */}
+            <div className="mt-12 pt-6 border-t border-slate-100 flex justify-between items-center text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+              <div>Generado con Facturador EcomAvanza</div>
+              <div>{new Date().toLocaleDateString('es-ES')}</div>
+            </div>
           </div>
         </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="bg-[#f0f9fa] min-h-screen pt-28 pb-24">
+
+      <div className="container mx-auto px-6 max-w-6xl">
+        {/* Navigation Tabs */}
+        <div className="flex border-b border-slate-200 mb-8 no-print gap-2">
+          <button
+            onClick={() => { setBackofficeMode('blog'); setIsPreviewVisible(false); }}
+            className={`py-3.5 px-6 text-xs font-black uppercase tracking-widest border-b-2 transition-all ${
+              backofficeMode === 'blog'
+                ? 'border-[#0e3a4d] text-[#0e3a4d]'
+                : 'border-transparent text-slate-400 hover:text-[#0e3a4d]'
+            }`}
+          >
+            Gestión de Blog
+          </button>
+          <button
+            onClick={() => setBackofficeMode('facturas')}
+            className={`py-3.5 px-6 text-xs font-black uppercase tracking-widest border-b-2 transition-all ${
+              backofficeMode === 'facturas'
+                ? 'border-[#0e3a4d] text-[#0e3a4d]'
+                : 'border-transparent text-slate-400 hover:text-[#0e3a4d]'
+            }`}
+          >
+            Generador de Facturas
+          </button>
+        </div>
+
+        {backofficeMode === 'blog' ? (
+          <>
+            {/* Header Section */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="px-3 py-1 rounded-full bg-[#0e3a4d]/5 text-[#0e3a4d] font-black text-[10px] uppercase tracking-widest">
+                    Panel de Control
+                  </span>
+                  <span className="flex items-center gap-1 text-[10px] text-green-600 font-extrabold uppercase bg-green-50 px-2 py-0.5 rounded-full">
+                    <Sparkles size={10} /> Conectado local
+                  </span>
+                </div>
+                <h1 className="text-4xl font-black text-[#0e3a4d] tracking-tight">Blog Amazon - Backoffice</h1>
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                <button
+                  onClick={() => setIsExportOpen(true)}
+                  className="inline-flex items-center gap-2 bg-white text-[#0e3a4d] border border-[#0e3a4d]/10 hover:border-[#0e3a4d]/30 px-6 py-3.5 rounded-2xl font-black text-sm shadow-sm transition-all active:scale-95"
+                >
+                  <FileCode size={18} className="text-[#4fd1d1]" />
+                  Exportar Cambios a Código
+                </button>
+                <button
+                  onClick={handleAddNew}
+                  className="inline-flex items-center gap-2 bg-[#0e3a4d] text-white hover:bg-[#0e3a4d]/90 px-6 py-3.5 rounded-2xl font-black text-sm shadow-lg shadow-[#0e3a4d]/10 transition-all active:scale-95"
+                >
+                  <Plus size={18} className="text-[#4fd1d1]" />
+                  Añadir Nuevo Artículo
+                </button>
+              </div>
+            </div>
+
+            {/* Dashboard Content */}
+            <div className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl border border-slate-100">
+              {/* Search bar & statistics */}
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8 border-b border-slate-100 pb-6">
+                <div className="relative w-full md:max-w-md">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                  <input
+                    type="text"
+                    placeholder="Buscar artículo por título o categoría..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full bg-slate-50 border-none rounded-2xl py-3.5 pl-12 pr-4 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                  />
+                </div>
+                <div className="text-sm font-bold text-slate-500 shrink-0">
+                  Total: <span className="text-[#0e3a4d] font-black">{articles.length}</span> artículos |
+                  Publicados: <span className="text-green-600 font-black">{articles.filter(a => !a.isDraft).length}</span> |
+                  Borradores: <span className="text-amber-500 font-black">{articles.filter(a => a.isDraft).length}</span>
+                </div>
+              </div>
+
+              {/* Table list */}
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-slate-100 text-slate-400 text-[10px] font-black uppercase tracking-wider">
+                      <th className="pb-4 pl-4">Detalles del Artículo</th>
+                      <th className="pb-4">Categoría</th>
+                      <th className="pb-4">Fecha / Autor</th>
+                      <th className="pb-4 text-center">Estado</th>
+                      <th className="pb-4 pr-4 text-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 text-sm font-semibold text-slate-700">
+                    {filteredArticles.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="py-12 text-center text-slate-400 font-medium italic">
+                          No se encontraron artículos.
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredArticles.map((art) => (
+                        <tr key={art.id} className="hover:bg-slate-50/50 transition-colors">
+                          {/* Image + Title */}
+                          <td className="py-5 pl-4 flex items-center gap-4 max-w-sm">
+                            <div className="w-14 h-10 rounded-lg overflow-hidden shrink-0 bg-slate-100 border border-slate-200">
+                              <img src={art.image} alt="" className="w-full h-full object-cover" />
+                            </div>
+                            <div className="min-w-0">
+                              <h4 className="font-extrabold text-[#0e3a4d] truncate max-w-xs" title={art.title}>
+                                {art.title}
+                              </h4>
+                              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight block truncate">
+                                ID/Slug: {art.id}
+                              </span>
+                            </div>
+                          </td>
+                          {/* Category */}
+                          <td className="py-5">
+                            <span className="px-2.5 py-1 rounded-full bg-[#f0f9fa] text-[#4fd1d1] font-black text-xs uppercase tracking-wider">
+                              {art.category}
+                            </span>
+                          </td>
+                          {/* Date & Author */}
+                          <td className="py-5 text-xs">
+                            <div className="font-bold text-[#0e3a4d]">{art.date}</div>
+                            <div className="text-slate-400">{art.author}</div>
+                          </td>
+                          {/* Status (Toggle) */}
+                          <td className="py-5 text-center">
+                            <button
+                              onClick={() => handleToggleDraft(art)}
+                              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider transition-colors ${
+                                art.isDraft 
+                                  ? 'bg-amber-50 text-amber-600 hover:bg-amber-100' 
+                                  : 'bg-green-50 text-green-600 hover:bg-green-100'
+                              }`}
+                            >
+                              {art.isDraft ? (
+                                <>
+                                  <EyeOff size={12} />
+                                  Borrador
+                                </>
+                              ) : (
+                                <>
+                                  <Eye size={12} />
+                                  Publicado
+                                </>
+                              )}
+                            </button>
+                          </td>
+                          {/* Actions */}
+                          <td className="py-5 pr-4 text-right">
+                            <div className="inline-flex gap-2">
+                              <a
+                                href={`#blog/${art.id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 text-slate-400 hover:text-[#0e3a4d] hover:bg-slate-100 rounded-xl transition-all"
+                                title="Ver en el Blog"
+                              >
+                                <Eye size={16} />
+                              </a>
+                              <button
+                                onClick={() => handleEdit(art)}
+                                className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
+                                title="Editar"
+                              >
+                                <Edit size={16} />
+                              </button>
+                              <button
+                                onClick={() => handleDelete(art.id, art.title)}
+                                className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
+                                title="Eliminar"
+                              >
+                                <Trash2 size={16} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Header Section */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="px-3 py-1 rounded-full bg-[#0e3a4d]/5 text-[#0e3a4d] font-black text-[10px] uppercase tracking-widest">
+                    Facturación
+                  </span>
+                  <span className="flex items-center gap-1 text-[10px] text-green-600 font-extrabold uppercase bg-green-50 px-2 py-0.5 rounded-full">
+                    <Sparkles size={10} /> Herramienta de Gestión
+                  </span>
+                </div>
+                <h1 className="text-4xl font-black text-[#0e3a4d] tracking-tight">Generador de Facturas</h1>
+              </div>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-8 mb-8">
+              {/* Emisor Card */}
+              <div className="bg-white rounded-[2rem] p-8 shadow-xl border border-slate-100 space-y-6">
+                <h2 className="text-sm font-black uppercase tracking-widest text-[#0e3a4d] border-b border-slate-100 pb-3 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 bg-[#4fd1d1] rounded-full"></span>
+                  Datos del Emisor (Tu empresa)
+                </h2>
+                
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Nombre / Razón social</label>
+                    <input
+                      type="text"
+                      value={issuerName}
+                      onChange={(e) => setIssuerName(e.target.value)}
+                      className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">CIF / NIF</label>
+                    <input
+                      type="text"
+                      value={issuerNif}
+                      onChange={(e) => setIssuerNif(e.target.value)}
+                      className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Dirección</label>
+                    <input
+                      type="text"
+                      value={issuerAddr}
+                      onChange={(e) => setIssuerAddr(e.target.value)}
+                      className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">CP - Ciudad</label>
+                    <input
+                      type="text"
+                      value={issuerCity}
+                      onChange={(e) => setIssuerCity(e.target.value)}
+                      className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">País</label>
+                    <input
+                      type="text"
+                      value={issuerCountry}
+                      onChange={(e) => setIssuerCountry(e.target.value)}
+                      className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Siglas logo (2-3 letras)</label>
+                    <input
+                      type="text"
+                      maxLength={4}
+                      value={issuerLogo}
+                      onChange={(e) => setIssuerLogo(e.target.value)}
+                      className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Cliente y Factura Meta Card */}
+              <div className="bg-white rounded-[2rem] p-8 shadow-xl border border-slate-100 space-y-6">
+                <h2 className="text-sm font-black uppercase tracking-widest text-[#0e3a4d] border-b border-slate-100 pb-3 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 bg-[#4fd1d1] rounded-full"></span>
+                  Datos del Cliente y Factura
+                </h2>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Nº Factura</label>
+                    <input
+                      type="text"
+                      value={invoiceNum}
+                      onChange={(e) => setInvoiceNum(e.target.value)}
+                      className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Fecha</label>
+                    <input
+                      type="date"
+                      value={invoiceDate}
+                      onChange={(e) => setInvoiceDate(e.target.value)}
+                      className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Cliente - Nombre / Razón social</label>
+                    <input
+                      type="text"
+                      value={clientName}
+                      onChange={(e) => setClientName(e.target.value)}
+                      className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Cliente - NIF / CIF</label>
+                    <input
+                      type="text"
+                      value={clientNif}
+                      onChange={(e) => setClientNif(e.target.value)}
+                      className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Cliente - Dirección completa</label>
+                  <textarea
+                    rows={2}
+                    value={clientAddr}
+                    onChange={(e) => setClientAddr(e.target.value)}
+                    className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm resize-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Lines Card */}
+            <div className="bg-white rounded-[2rem] p-8 shadow-xl border border-slate-100 mb-8 space-y-6">
+              <h2 className="text-sm font-black uppercase tracking-widest text-[#0e3a4d] border-b border-slate-100 pb-3 flex items-center gap-2">
+                <span className="w-2.5 h-2.5 bg-[#4fd1d1] rounded-full"></span>
+                Líneas de Factura
+              </h2>
+
+              <div className="hidden md:grid grid-cols-12 gap-4 font-black text-[10px] text-slate-400 uppercase tracking-widest px-4 border-b border-slate-100 pb-2">
+                <span className="col-span-5">Descripción</span>
+                <span className="col-span-2 text-center">Cant.</span>
+                <span className="col-span-2 text-right">Precio Unit.</span>
+                <span className="col-span-2 text-right">Importe</span>
+                <span className="col-span-1"></span>
+              </div>
+
+              <div className="space-y-3">
+                {invoiceLines.map((line) => (
+                  <div key={line.id} className="grid grid-cols-12 gap-4 border-b md:border-none border-slate-100 pb-4 md:pb-0 items-center">
+                    <div className="col-span-12 md:col-span-5 space-y-1">
+                      <label className="md:hidden text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Descripción</label>
+                      <input
+                        type="text"
+                        placeholder="Descripción del servicio o producto"
+                        value={line.desc}
+                        onChange={(e) => updateInvoiceLine(line.id, 'desc', e.target.value)}
+                        className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-semibold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                      />
+                    </div>
+                    
+                    <div className="col-span-4 md:col-span-2 space-y-1">
+                      <label className="md:hidden text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Cantidad</label>
+                      <input
+                        type="number"
+                        min="1"
+                        step="1"
+                        value={line.qty}
+                        onChange={(e) => updateInvoiceLine(line.id, 'qty', e.target.value)}
+                        className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-semibold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm text-center"
+                      />
+                    </div>
+
+                    <div className="col-span-4 md:col-span-2 space-y-1">
+                      <label className="md:hidden text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Precio Unitario</label>
+                      <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={line.price}
+                        onChange={(e) => updateInvoiceLine(line.id, 'price', e.target.value)}
+                        className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-semibold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm text-right"
+                      />
+                    </div>
+
+                    <div className="col-span-4 md:col-span-2 space-y-1">
+                      <label className="md:hidden text-[9px] font-black text-slate-400 uppercase tracking-widest ml-2">Importe</label>
+                      <div className="w-full bg-slate-100 rounded-2xl py-3.5 px-5 text-slate-500 font-bold text-sm text-right">
+                        {formatCurrency(line.qty * line.price)}
+                      </div>
+                    </div>
+
+                    <div className="col-span-12 md:col-span-1 flex justify-end md:justify-center">
+                      <button
+                        onClick={() => removeInvoiceLine(line.id)}
+                        className="p-3 text-red-500 hover:bg-red-50 rounded-2xl transition-all"
+                        title="Eliminar línea"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                onClick={addInvoiceLine}
+                className="w-full py-4 bg-slate-50 hover:bg-slate-100/80 text-[#0e3a4d] border border-dashed border-[#0e3a4d]/20 rounded-2xl font-black text-sm transition-all shadow-sm"
+              >
+                + Añadir Línea de Factura
+              </button>
+            </div>
+
+            {/* IVA, Currency and Notes Card */}
+            <div className="bg-white rounded-[2rem] p-8 shadow-xl border border-slate-100 mb-8 space-y-6">
+              <h2 className="text-sm font-black uppercase tracking-widest text-[#0e3a4d] border-b border-slate-100 pb-3 flex items-center gap-2">
+                <span className="w-2.5 h-2.5 bg-[#4fd1d1] rounded-full"></span>
+                IVA y Observaciones
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">IVA (%)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value={invoiceIva}
+                    onChange={(e) => setInvoiceIva(parseInt(e.target.value) || 0)}
+                    className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Moneda</label>
+                  <select
+                    value={invoiceCurrency}
+                    onChange={(e) => setInvoiceCurrency(e.target.value)}
+                    className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm"
+                  >
+                    <option value="€">€ Euro</option>
+                    <option value="$">$ USD</option>
+                    <option value="£">£ GBP</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Notas / Forma de pago (opcional)</label>
+                <textarea
+                  rows={3}
+                  value={invoiceNotes}
+                  onChange={(e) => setInvoiceNotes(e.target.value)}
+                  placeholder="Ej: Transferencia bancaria. IBAN: ES00 0000 0000 0000..."
+                  className="w-full bg-slate-50 border-none rounded-2xl py-3.5 px-5 text-[#0e3a4d] font-bold focus:ring-2 focus:ring-[#4fd1d1] transition-all outline-none text-sm resize-none"
+                />
+              </div>
+            </div>
+
+            {/* Action Bar */}
+            <div className="flex justify-end">
+              <button
+                onClick={() => setIsPreviewVisible(true)}
+                className="inline-flex items-center gap-2 bg-[#0e3a4d] text-white hover:bg-[#0e3a4d]/90 px-8 py-4 rounded-2xl font-black text-sm shadow-lg shadow-[#0e3a4d]/10 transition-all hover:scale-[1.01] active:scale-[0.99]"
+              >
+                <Eye size={18} className="text-[#4fd1d1]" />
+                Previsualizar Factura
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+
 
       {/* Editor Drawer/Modal Overlay */}
       <AnimatePresence>
